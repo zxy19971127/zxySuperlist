@@ -37,9 +37,28 @@ class NewVisitorTest(unittest.TestCase):
 
         table=self.browser.find_element_by_id('id_list_table')
         rows=table.find_elements_by_tag_name('tr')
-        self.assertTrue(any(row.text=='1:Buy peacock feathers' for row in rows),"new to-do item did not appear in table")
-
+        
         #仍然存在一个输入框等待她输入待办事项
+
+        #她准备输入一个待办事项
+        inputbox=self.browser.find_element_by_id('id_new_item')
+        #print(inputbox.get_attribute('placeholder'))
+        self.assertEqual(inputbox.get_attribute('placeholder'),'enter a to-do item')
+
+        #她在输入区输入buy peacock feathers
+        inputbox.send_keys('use peacock feathers to make a fly')
+
+        #点击enter后，页面刷新，待办区出现一条新item
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(5)
+
+        table=self.browser.find_element_by_id('id_list_table')
+        rows=table.find_elements_by_tag_name('tr')
+
+        self.assertIn('1: buy peacock feathers',[row.text for row in rows])
+        self.assertIn('2: use peacock feathers to make a fly',[row.text for row in rows])
+        #她希望不管她什么时候进入网站，网站都记得她的待办列表
+        #并且她希望她能够拥有独一无二的专属url
 
         self.fail("finish the test")
 
