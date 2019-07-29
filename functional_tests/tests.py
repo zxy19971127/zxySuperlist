@@ -116,7 +116,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         #她追溯不到edith的列表
         page_text=self.browser.find_element_by_tag_name('body').text
-        self.assertNotIn('buy peacock feathers')
+        self.assertNotIn('buy peacock feathers',page_text)
         self.assertIn('buy milk',page_text)
 
         #两个人都心满意足
