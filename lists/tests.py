@@ -108,5 +108,7 @@ class NewItemTest(TestCase):
 
         self.assertRedirects(response,f'/lists/{correct_list.id}/')
 
+
+
 #if __name__=='__main__':
  #   unittest.main()rie
