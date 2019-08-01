@@ -4,8 +4,10 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import time
 import unittest
 from selenium.common.exceptions import WebDriverException
-MAX_WAIT=10
+import os
 
+MAX_WAIT=10
+STAGING_SERVER='49.232.41.40'
 
 chrome_driver='C:/Users/xinyue/AppData/Local/Google/Chrome/chromedriver_win32/chromedriver.exe'
 
@@ -13,6 +15,12 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser=webdriver.Chrome(executable_path=chrome_driver)
+        #executable_path=chrome_driver
+        staging_server=os.environ.get(STAGING_SERVER)
+        if staging_server:
+            self.live_server_url='http://'+staging_server
+        self.live_server_url = 'http://' + STAGING_SERVER
+
 
     def tearDown(self):
         self.browser.quit()
